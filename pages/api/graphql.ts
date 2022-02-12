@@ -28,6 +28,8 @@ const apolloServer = new ApolloServer({
   plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
 });
 
+const startServer = apolloServer.start();
+
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader(
@@ -43,7 +45,7 @@ export default async function handler(req, res) {
     return false;
   }
 
-  await apolloServer.start();
+  await startServer;
   await apolloServer.createHandler({
     path: "/api/graphql",
   } as any)(req, res);
